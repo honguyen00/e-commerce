@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productsData = await Product.findAll({
-      include: [{ model: Category, as: 'category' }, { model: Tag, through: ProductTag, as: 'product_tags' }],
+      include: [{ model: Category, as: 'category' }, { model: Tag, through: ProductTag}],
     });
     if (!productsData) {
       res.status(400).json({message: 'Cannot find products in database'});
@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productsData = await Product.findByPk(req.params.id,{
-      include: [{ model: Category, as: 'category' }, { model: Tag, through: ProductTag, as: 'product_tags' }],
+      include: [{ model: Category, as: 'category' }, { model: Tag, through: ProductTag}],
     });
     if (!productsData) {
       res.status(400).json({message: 'Cannot find product in database'});
@@ -108,7 +108,7 @@ router.put('/:id', (req, res) => {
         });
       }
 
-      return res.json(product);
+      return res.status(200).json(product);
     })
     .catch((err) => {
       // console.log(err);
@@ -124,7 +124,7 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id
       }
     });
-    res.status(200).json({message: "Delete successfully"});
+    res.status(200).json(deleteProduct);
   } catch (error) {
     res.status(400).json(error)
   }

@@ -22,7 +22,6 @@ Product.belongsToMany(Tag, {
     unique: false,
   },
   onDelete: 'CASCADE',
-  as: 'product_tags'
 });
 
 // Tags belongToMany Products (through ProductTag)
@@ -32,7 +31,6 @@ Tag.belongsToMany(Product, {
     unique: false,
   },
   onDelete: 'CASCADE',
-  as: 'tag_products'
 });
 
 module.exports = {
