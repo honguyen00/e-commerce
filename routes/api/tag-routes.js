@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Product data
   try {
     const tagData = await Tag.findAll({
-      include: [{model: Product, through: ProductTag, as: 'tag_products'}]
+      include: [{model: Product, through: ProductTag, as: 'tag_products'}],
     });
     if (!tagData) {
       res.status(404).json({message: "Cannot find tags in database"});
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res) => {
         id: req.params.id
       }
     });
-    res.status(200).json(newTag, {message: 'Update successfully'});
+    res.status(200).json({newTag, message: 'Update successfully'});
   } catch (error) {
     res.status(400).json(error)
   }
@@ -69,7 +69,7 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id
       }
     });
-    res.status(200).json({message: "Delete successfully"});
+    res.status(200).json({tagData, message: "Delete successfully"});
   } catch (error) {
     res.status(400).json(error)
   }
